@@ -1,0 +1,31 @@
+{
+  "etapas": [
+    {
+      "nome": "Dataset carregado",
+      "elapsed_s": 40.17,
+      "total_s": 40.17
+    },
+    {
+      "nome": "Passe 1: covariancia XtX",
+      "elapsed_s": 96.79,
+      "total_s": 136.96
+    },
+    {
+      "nome": "Eigendecomposicao (eigh float64, top-k)",
+      "elapsed_s": 83.86,
+      "total_s": 220.82
+    },
+    {
+      "nome": "Passe 2: projecao + reordenacao",
+      "elapsed_s": 101.06,
+      "total_s": 321.88
+    }
+  ],
+  "total_s": 321.88,
+  "total_min": 5.36,
+  "speedup_vs_paper_96h": 1074,
+  "n_components": 50,
+  "n_cells": 1148558,
+  "n_genes": 13897,
+  "explained_variance_top6": [0.2961, 0.2922, 0.2902, 0.2647, 0.2605, 0.2604]
+}

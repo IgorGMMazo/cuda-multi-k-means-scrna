@@ -1,0 +1,42 @@
+[
+  {
+    "nome": "Dataset carregado",
+    "elapsed_s": 18.69,
+    "total_s": 18.69
+  },
+  {
+    "nome": "Matriz CSR float32",
+    "elapsed_s": 0.003,
+    "total_s": 18.693
+  },
+  {
+    "nome": "Norms (CPU reduceat)",
+    "elapsed_s": 17.665,
+    "total_s": 36.358
+  },
+  {
+    "nome": "Centroides K-Means++",
+    "elapsed_s": 1.486,
+    "total_s": 37.844
+  },
+  {
+    "nome": "Pinned buffers alocados",
+    "elapsed_s": 0.089,
+    "total_s": 37.933
+  },
+  {
+    "nome": "Mini-batch convergido",
+    "elapsed_s": 228.076,
+    "total_s": 266.009
+  },
+  {
+    "nome": "Assignment final",
+    "elapsed_s": 84.23,
+    "total_s": 350.239
+  },
+  {
+    "nome": "Resultado salvo",
+    "elapsed_s": 83.794,
+    "total_s": 434.034
+  }
+]

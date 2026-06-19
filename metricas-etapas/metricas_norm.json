@@ -1,0 +1,27 @@
+[
+  {
+    "nome": "Dataset carregado",
+    "elapsed_s": 16.954,
+    "total_s": 16.955
+  },
+  {
+    "nome": "Matriz CSR float32",
+    "elapsed_s": 0.208,
+    "total_s": 17.488
+  },
+  {
+    "nome": "Deconvolution por bloco",
+    "elapsed_s": 435.915,
+    "total_s": 453.402
+  },
+  {
+    "nome": "Reescala entre blocos",
+    "elapsed_s": 5.004,
+    "total_s": 458.408
+  },
+  {
+    "nome": "log1p(counts/sf) aplicado",
+    "elapsed_s": 25.151,
+    "total_s": 483.559
+  }
+]

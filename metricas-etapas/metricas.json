@@ -1,0 +1,24 @@
+{
+  "total_segundos": 285.295,
+  "etapas_segundos": {
+    "inicio → metadados_inicio": 0.872,
+    "metadados_inicio → pass1_inicio": 0.174,
+    "pass1_inicio → pass1_fim": 107.75,
+    "pass1_fim → gene_mask_inicio": 0.0,
+    "gene_mask_inicio → gene_mask_fim": 0.081,
+    "gene_mask_fim → pass2_inicio": 0.0,
+    "pass2_inicio → pass2_fim": 59.374,
+    "pass2_fim → anndata_inicio": 0.0,
+    "anndata_inicio → anndata_fim": 24.502,
+    "anndata_fim → io_save_inicio": 0.473,
+    "io_save_inicio → io_save_fim": 91.833,
+    "io_save_fim → fim": 0.236
+  },
+  "ram": {
+    "pico_gb": 21.92,
+    "media_gb": 9.83,
+    "minimo_gb": 0.38,
+    "n_amostras": 566,
+    "intervalo_s": 0.5
+  }
+}

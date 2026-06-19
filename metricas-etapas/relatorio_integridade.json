@@ -1,0 +1,212 @@
+[
+  {
+    "etapa": "inicial",
+    "checagem": "carregamento",
+    "status": "FALHA",
+    "detalhe": "erro ao abrir: \"Unable to synchronously open object (object 'matrix' doesn't exist)\""
+  },
+  {
+    "etapa": "filtrado",
+    "checagem": "carregamento",
+    "status": "OK",
+    "detalhe": "1,148,558 x 13,897 (modo backed)"
+  },
+  {
+    "etapa": "filtrado",
+    "checagem": "NaN / Inf",
+    "status": "OK",
+    "detalhe": "NaN=0, Inf=0"
+  },
+  {
+    "etapa": "filtrado",
+    "checagem": "valores negativos",
+    "status": "OK",
+    "detalhe": "0 negativos (contagem não pode ser negativa)"
+  },
+  {
+    "etapa": "filtrado",
+    "checagem": "valores inteiros",
+    "status": "OK",
+    "detalhe": "0 valores não-inteiros (esperado: contagens brutas)"
+  },
+  {
+    "etapa": "filtrado",
+    "checagem": "densidade da matriz",
+    "status": "OK",
+    "detalhe": "15.167% não-zero"
+  },
+  {
+    "etapa": "filtrado",
+    "checagem": "células com soma=0",
+    "status": "OK",
+    "detalhe": "0 células"
+  },
+  {
+    "etapa": "filtrado",
+    "checagem": "genes com soma=0",
+    "status": "OK",
+    "detalhe": "0 genes"
+  },
+  {
+    "etapa": "cluster_init",
+    "checagem": "carregamento",
+    "status": "OK",
+    "detalhe": "1,148,558 x 13,897 (modo backed)"
+  },
+  {
+    "etapa": "cluster_init",
+    "checagem": "NaN / Inf",
+    "status": "OK",
+    "detalhe": "NaN=0, Inf=0"
+  },
+  {
+    "etapa": "cluster_init",
+    "checagem": "valores negativos",
+    "status": "OK",
+    "detalhe": "0 negativos (contagem não pode ser negativa)"
+  },
+  {
+    "etapa": "cluster_init",
+    "checagem": "valores inteiros",
+    "status": "OK",
+    "detalhe": "0 valores não-inteiros (esperado: contagens brutas)"
+  },
+  {
+    "etapa": "cluster_init",
+    "checagem": "densidade da matriz",
+    "status": "OK",
+    "detalhe": "15.167% não-zero"
+  },
+  {
+    "etapa": "cluster_init",
+    "checagem": "células com soma=0",
+    "status": "OK",
+    "detalhe": "0 células"
+  },
+  {
+    "etapa": "cluster_init",
+    "checagem": "genes com soma=0",
+    "status": "OK",
+    "detalhe": "0 genes"
+  },
+  {
+    "etapa": "normalizado",
+    "checagem": "carregamento",
+    "status": "OK",
+    "detalhe": "1,148,558 x 13,897 (modo backed)"
+  },
+  {
+    "etapa": "normalizado",
+    "checagem": "NaN / Inf",
+    "status": "OK",
+    "detalhe": "NaN=0, Inf=0"
+  },
+  {
+    "etapa": "normalizado",
+    "checagem": "valores negativos",
+    "status": "OK",
+    "detalhe": "0 negativos (ok se centrado/escalado; inesperado se for só log-normalização)"
+  },
+  {
+    "etapa": "normalizado",
+    "checagem": "densidade da matriz",
+    "status": "OK",
+    "detalhe": "15.167% não-zero"
+  },
+  {
+    "etapa": "normalizado",
+    "checagem": "células com soma=0",
+    "status": "OK",
+    "detalhe": "0 células"
+  },
+  {
+    "etapa": "normalizado",
+    "checagem": "genes com soma=0",
+    "status": "OK",
+    "detalhe": "0 genes"
+  },
+  {
+    "etapa": "pca",
+    "checagem": "carregamento",
+    "status": "OK",
+    "detalhe": "shape=(1148558, 50)"
+  },
+  {
+    "etapa": "pca",
+    "checagem": "NaN / Inf",
+    "status": "OK",
+    "detalhe": "NaN=0, Inf=0"
+  },
+  {
+    "etapa": "pca",
+    "checagem": "n_componentes",
+    "status": "OK",
+    "detalhe": "50 colunas (esperado: 50)"
+  },
+  {
+    "etapa": "pca",
+    "checagem": "variância decrescente por PC",
+    "status": "OK",
+    "detalhe": "PC1 var=0.296 ... PC50 var=0.123"
+  },
+  {
+    "etapa": "pca",
+    "checagem": "centragem (média ~0 por PC)",
+    "status": "OK",
+    "detalhe": "|média| máxima = 0.0000"
+  },
+  {
+    "etapa": "pipeline",
+    "checagem": "filtrado == cluster_init",
+    "status": "OK",
+    "detalhe": "1,148,558 vs 1,148,558"
+  },
+  {
+    "etapa": "pipeline",
+    "checagem": "filtrado -> normalizado",
+    "status": "OK",
+    "detalhe": "1,148,558 células preservadas"
+  },
+  {
+    "etapa": "pipeline",
+    "checagem": "normalizado == pca [CRÍTICO]",
+    "status": "OK",
+    "detalhe": "1,148,558 vs 1,148,558"
+  },
+  {
+    "etapa": "pipeline",
+    "checagem": "genes: filtrado == cluster_init",
+    "status": "OK",
+    "detalhe": ""
+  },
+  {
+    "etapa": "pipeline",
+    "checagem": "genes: normalizado ⊆ filtrado",
+    "status": "OK",
+    "detalhe": "13,897 de 13,897"
+  },
+  {
+    "etapa": "filtrado",
+    "checagem": "barcodes duplicados",
+    "status": "OK",
+    "detalhe": "0 duplicados"
+  },
+  {
+    "etapa": "cluster_init",
+    "checagem": "barcodes duplicados",
+    "status": "OK",
+    "detalhe": "0 duplicados"
+  },
+  {
+    "etapa": "normalizado",
+    "checagem": "barcodes duplicados",
+    "status": "OK",
+    "detalhe": "0 duplicados"
+  },
+  {
+    "etapa": "pipeline",
+    "checagem": "barcodes: normalizado ⊆ filtrado",
+    "status": "OK",
+    "detalhe": ""
+  }
+]
