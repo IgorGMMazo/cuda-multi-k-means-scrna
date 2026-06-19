@@ -28,9 +28,10 @@ import numpy as np
 import scipy.sparse as sp
 from cupyx.scipy.sparse.linalg import eigsh
 
-CAMINHO_ENTRADA = Path(r"C:\Users\igorm\Documents\programacao\trabalho-cad-v2\dataset\normalizado\normalizado_scran.h5ad")
-SAIDA_SCORES    = Path(r"C:\Users\igorm\Documents\programacao\trabalho-cad-v2\dataset\pca")
-METRICAS_JSON   = Path(r"C:\Users\igorm\Documents\programacao\trabalho-cad-v2\metricas-etapas\metricas_pca.json")
+BASE = Path(__file__).resolve().parents[2]   # raiz do repositório (trabalho-cad-v2/)
+CAMINHO_ENTRADA = BASE / "dataset" / "normalizado" / "normalizado_scran.h5ad"
+SAIDA_SCORES    = BASE / "dataset" / "pca" / "pca.npy"   # arquivo (antes apontava p/ o diretório)
+METRICAS_JSON   = BASE / "metricas-etapas" / "metricas_pca.json"
 
 CFG = {"n_components": 50, "batch_size": 7_000}
 

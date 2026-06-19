@@ -594,16 +594,15 @@ def salvar_dataset(
 # ══════════════════════════════════════════════════════════════
 
 if __name__ == "__main__":
-    CAMINHO_ENTRADA = (
-        r"C:\Users\igorm\Documents\programacao\trabalho-cad-v2"
-        r"\dataset\antigo\1M_neurons_filtered_gene_bc_matrices_h5.h5"
+    # raiz do repositório (trabalho-cad-v2/), relativa a este arquivo
+    BASE = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+    CAMINHO_ENTRADA = os.path.join(
+        BASE, "dataset", "inicial", "1M_neurons_filtered_gene_bc_matrices_h5.h5"
     )
-    DIRETORIO_SAIDA = (
-        r"C:\Users\igorm\Documents\programacao\trabalho-cad-v2"
-        r"\dataset\pre-processado"
-    )
-    METRICAS_TXT  = os.path.join(DIRETORIO_SAIDA, "metricas.txt")
-    METRICAS_JSON = os.path.join(DIRETORIO_SAIDA, "metricas.json")
+    DIRETORIO_SAIDA = os.path.join(BASE, "dataset", "pre-processado")
+    METRICAS_TXT  = os.path.join(BASE, "metricas-etapas", "metricas.txt")
+    METRICAS_JSON = os.path.join(BASE, "metricas-etapas", "metricas.json")
 
     monitor = MetricsMonitor(sample_interval=0.5)
     monitor.start()

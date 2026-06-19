@@ -1,0 +1,25 @@
+{
+  "k_values": [
+    3,
+    15
+  ],
+  "elbow_k": 3,
+  "best_sil_k": 3,
+  "tempo_paralelo_s": 6.15,
+  "resultados": {
+    "3": {
+      "wcss": 10611519.0,
+      "wcss_n": 9.238992719566621,
+      "silhouette": 0.12877811055042218,
+      "n_iters": 34,
+      "elapsed_s": 1.83
+    },
+    "15": {
+      "wcss": 9609837.0,
+      "wcss_n": 8.366871329092653,
+      "silhouette": 0.011959701138710418,
+      "n_iters": 237,
+      "elapsed_s": 6.15
+    }
+  }
+}

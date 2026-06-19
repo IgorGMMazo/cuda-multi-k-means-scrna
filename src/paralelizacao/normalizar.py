@@ -36,9 +36,10 @@ except Exception:
     gpu_lsqr = None        # versões antigas de CuPy: cai p/ equações normais
 
 # ─── Config ───────────────────────────────────────────────────────────────────
-CAMINHO_ENTRADA = Path(r"C:\Users\igorm\Documents\programacao\trabalho-cad-v2\dados\clustering_all_genes.h5ad")
-CAMINHO_SAIDA   = Path(r"C:\Users\igorm\Documents\programacao\trabalho-cad-v2\dados\normalizado_scran.h5ad")
-METRICAS_JSON   = Path(r"C:\Users\igorm\Documents\programacao\trabalho-cad-v2\dados\metricas_norm.json")
+BASE = Path(__file__).resolve().parents[2]   # raiz do repositório (trabalho-cad-v2/)
+CAMINHO_ENTRADA = BASE / "dataset" / "clusterizado-inicial" / "clustering_all_genes.h5ad"
+CAMINHO_SAIDA   = BASE / "dataset" / "normalizado" / "normalizado_scran.h5ad"
+METRICAS_JSON   = BASE / "metricas-etapas" / "metricas_norm.json"
 COL_CLUSTER     = "cluster_all_genes"
 
 CFG = {

@@ -13,9 +13,10 @@ import scipy.sparse as sp
 
 # ─── Configuração ─────────────────────────────────────────────────────────────
 
-CAMINHO_ENTRADA = Path(r"C:\Users\igorm\Documents\programacao\trabalho-cad-v2\dataset\pre-processado\dataset_filtrado.h5ad")
-CAMINHO_SAIDA   = Path(r"C:\Users\igorm\Documents\programacao\trabalho-cad-v2\dados\clustering_all_genes.h5ad")
-METRICAS_JSON   = Path(r"C:\Users\igorm\Documents\programacao\trabalho-cad-v2\dados\metricas_clustering.json")
+BASE = Path(__file__).resolve().parents[2]   # raiz do repositório (trabalho-cad-v2/)
+CAMINHO_ENTRADA = BASE / "dataset" / "pre-processado" / "dataset_filtrado.h5ad"
+CAMINHO_SAIDA   = BASE / "dataset" / "clusterizado-inicial" / "clustering_all_genes.h5ad"
+METRICAS_JSON   = BASE / "metricas-etapas" / "metricas_clustering.json"
 
 CFG = {
     "n_clusters":  15,

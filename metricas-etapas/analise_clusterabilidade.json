@@ -1,0 +1,49 @@
+{
+  "descricao": "Resultados da analise de clusterabilidade (sessao de revisao do artigo). Avalia se o silhouette baixo / borrao em 2D era artefato de lente (UMAP vs PCA-2D) ou de pre-processamento (todos os genes vs HVG).",
+  "dataset": {
+    "n_celulas": 1148558,
+    "n_genes_total": 13897,
+    "pca_componentes": 50,
+    "espaco_pca_todos_genes": "dataset/pca/pca.npy (reaproveitado do pipeline)"
+  },
+
+  "variancia_pca": {
+    "comentario": "Fracao de variancia ENTRE os 50 PCs. Espectro plano = nuvem quase isotropica = sem estrutura globular.",
+    "todos_genes": {
+      "PC1_a_PC6": [0.0284, 0.0280, 0.0278, 0.0254, 0.0250, 0.0249],
+      "PC1_mais_PC2_pct": 5.6,
+      "top10_pct": 25.5
+    },
+    "hvg_2000": {
+      "PC1_mais_PC2_pct": 36.4,
+      "top10_pct": 69.8,
+      "comentario": "HVG concentra a variancia: surgem direcoes dominantes."
+    }
+  },
+
+  "silhouette": {
+    "comentario": "Silhouette amostrado (5000 celulas, euclidiano). MiniBatchKMeans, seed=42, n_init=3. Valores absolutos sao ruidosos; confiar na comparacao RELATIVA (HVG vs todos) dentro da mesma rodada. Limiar convencional de estrutura forte: 0.25.",
+    "todos_genes": { "k2": 0.0776, "k15": -0.0004 },
+    "hvg_2000":    { "k2": 0.3100, "k15": 0.1215 }
+  },
+
+  "hvg": {
+    "metodo": "Seurat-style (dispersao=var/mean das contagens normalizadas, z-score por bin de media, top-N) calculado em chunks. Aproximacao do modelGeneVar/denoisePCA do paper, nao identico.",
+    "n_top_genes": 2000
+  },
+
+  "conclusoes": [
+    "O borrao da Fig.2 (PC1xPC2) era a lente: PC1+PC2 capturam so 5.6% da variancia dos 50 PCs. Nao foi erro de transformacao.",
+    "Boa parte da nao-clusterabilidade reportada vinha de usar TODOS os ~14k genes (ruido dilui a estrutura). Com top-2000 HVG, variancia concentra (5.6%->36.4%) e o UMAP forma ilhas parecidas com a Fig.5A do paper.",
+    "Selecionar HVG e exatamente o que o fluxo OSCA/Bioconductor do paper faz (denoisePCA sobre HVGs); a diferenca era pre-processamento, nao bug.",
+    "MESMO com HVG, k=15 da silhouette 0.12 (< 0.25): k-means euclidiano nao separa 15 grupos globulares limpos. Caráter de continuo persiste. So o split de topo k=2 (0.31) cruza o limiar.",
+    "Recomendacao p/ o artigo: suavizar a afirmacao 'dados nao sao bem separados por K-means', incluindo a analise HVG como controle do confundidor. Fortalece o paper."
+  ],
+
+  "artefatos": {
+    "imagem_umap_vs_pca": "metricas-etapas/umap_vs_pca.png",
+    "imagem_hvg_vs_allgenes": "metricas-etapas/hvg_vs_allgenes_umap.png",
+    "script_umap_vs_pca": "src/analise/umap_vs_pca.py",
+    "script_hvg": "src/analise/hvg_pca_silhouette.py"
+  }
+}

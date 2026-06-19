@@ -14,10 +14,11 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # ── Caminhos ──────────────────────────────────────────────────────────────────
-PCA_SCORES     = r"C:\Users\igorm\Documents\programacao\trabalho-cad-v2\dataset\pca\pca.npy"
-SAIDA_LABELS   = r"C:\Users\igorm\Documents\programacao\trabalho-cad-v2\metricas-etapas\labels_multi_k.npz"
-SAIDA_JSON     = r"C:\Users\igorm\Documents\programacao\trabalho-cad-v2\metricas-etapas\resultados_multi_kv4.json"
-SAIDA_PLOT     = r"C:\Users\igorm\Documents\programacao\trabalho-cad-v2\metricas-etapas\grafico_metricasv4.png"
+BASE           = Path(__file__).resolve().parents[2]   # raiz do repositório (trabalho-cad-v2/)
+PCA_SCORES     = str(BASE / "dataset" / "pca" / "pca.npy")
+SAIDA_LABELS   = str(BASE / "metricas-etapas" / "labels_multi_k.npz")
+SAIDA_JSON     = str(BASE / "metricas-etapas" / "resultados_multi_kv4.json")
+SAIDA_PLOT     = str(BASE / "metricas-etapas" / "grafico_metricasv4.png")
 
 # ── Config ────────────────────────────────────────────────────────────────────
 K_VALUES      = [2,4,6,8,10,12,14,16,18,20,22,24,26,28,30]

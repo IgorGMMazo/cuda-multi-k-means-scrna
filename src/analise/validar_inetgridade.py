@@ -42,7 +42,7 @@ import numpy as np
 import scipy.sparse as sp
 
 # ── Caminhos ──────────────────────────────────────────────────────────────
-BASE = Path(r"C:\Users\igorm\Documents\programacao\trabalho-cad-v2\dataset")
+BASE = Path(__file__).resolve().parents[2] / "dataset"   # raiz do repo / dataset
 
 RAW_H5        = BASE / "inicial" / "1M_neurons_filtered_gene_bc_matrices_h5.h5"   # <-- confirme o nome exato
 FILTRADO      = BASE / "pre-processado" / "dataset_filtrado.h5ad"
