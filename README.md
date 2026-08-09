@@ -128,8 +128,14 @@ Speedup por etapa (baseline = tempos reportados por Hicks et al., CPU single-thr
 trabalho-cad-v2/
 ├── README.md
 ├── requirements.txt
+├── gerar_apresentacao.py            # gera o .pptx final (lê imagens de metricas-etapas/)
 │
-├── dataset/                         # artefatos de dados (um por etapa)
+├── entregaveis/                     # PDFs finais entregues na disciplina
+│   ├── Artigo_final_CAD.pdf
+│   ├── Apresentacao_final_CAD.pdf
+│   └── Resumo_final_CAD.pdf
+│
+├── dataset/                         # artefatos de dados (um por etapa) — fora do git (.gitignore)
 │   ├── inicial/                     # entrada: HDF5 bruto 10x (~55 GB)
 │   │   └── 1M_neurons_filtered_gene_bc_matrices_h5.h5
 │   ├── pre-processado/              # saída da etapa 1
@@ -138,15 +144,19 @@ trabalho-cad-v2/
 │   │   └── clustering_all_genes.h5ad
 │   ├── normalizado/                 # saída da etapa 3 (counts log-normalizados + size factors)
 │   │   └── normalizado_scran.h5ad
-│   └── pca/                         # saída da etapa 4
-│       └── pca.npy                  # scores (n_células × 50 PCs)
+│   ├── pca/                         # saída da etapa 4, baseline com TODOS os genes
+│   │   └── pca.npy                  # scores (n_células × 50 PCs)
+│   └── pca_hvg/                     # saída da etapa 4, sobre top-2000 HVG (ver seção HVG abaixo)
+│       ├── pca.npy                  # scores (n_células × 50 PCs)
+│       ├── hvg_mask.npy             # bool (n_genes_total,) — quais genes viraram HVG
+│       └── hvg_gene_ids.npy         # nomes dos genes selecionados
 │
 ├── src/
 │   ├── paralelizacao/               # PIPELINE PRINCIPAL (as 5 etapas)
 │   │   ├── pre-processamento.py     # Etapa 1 — QC: GPU (Pass 1) + CPU multicore (Pass 2)
 │   │   ├── clusteringAllv2.py       # Etapa 2 — mini-batch K-means (CuPy)
 │   │   ├── normalizar.py            # Etapa 3 — scran/deconvolution (CuPy)
-│   │   ├── pca-gpu.py               # Etapa 4 — PCA por covariância (CuPy + cuSOLVER)
+│   │   ├── pca-gpu.py               # Etapa 4 — PCA por covariância (CuPy + cuSOLVER), sobre HVG
 │   │   └── clustering-finalv2.py    # Etapa 5 — Multi-K Lloyd + busca de K (CuPy)
 │   │
 │   └── analise/                     # ANÁLISES E VALIDAÇÕES (fora do caminho crítico)
@@ -154,19 +164,36 @@ trabalho-cad-v2/
 │       ├── validar_inetgridade.py   # validação de integridade ponta a ponta (streaming)
 │       ├── pca_analise.py           # scatter rápido PC1 × PC2
 │       ├── teste.py                 # sanity-check do pca.npy (NaN / variância decrescente)
-│       ├── umap_vs_pca.py           # PC1×PC2 vs UMAP (k=15)
-│       ├── umap_vs_pca_multi_k.py   # PC1×PC2 vs UMAP, varrendo K de 1 a 20
-│       └── hvg_pca_silhouette.py    # HVG vs todos-os-genes: silhouette + UMAP
+│       ├── umap_vs_pca.py           # PC1×PC2 vs UMAP, todos os genes (k=15)
+│       ├── umap_vs_pca_multi_k.py   # PC1×PC2 vs UMAP, todos os genes, varrendo K de 1 a 20
+│       ├── hvg_pca_silhouette.py    # HVG vs todos-os-genes: silhouette + UMAP (exploratório)
+│       ├── umap_vs_pca_hvg.py       # PC1×PC2 vs UMAP em hexbin, sobre HVG (estilo Fig.5A do paper)
+│       └── investiga_variancia_hvg.py  # diagnóstico do bug de precisão do PCA-HVG (ver nota abaixo)
 │
 └── metricas-etapas/                 # métricas (JSON), gráficos (PNG) e labels de saída
-    ├── metricas_*.json              # tempos/VRAM por etapa
-    ├── resultados_multi_k*.json     # WCSS, silhouette, iterações por K
-    ├── labels_multi_k.npz           # labels finais por K
+    ├── metricas_*.json              # tempos/VRAM por etapa (uma por etapa do pipeline)
+    ├── resultados_multi_k_todos_genes.json  # WCSS/silhouette por K — clustering final, todos os genes
+    ├── grafico_metricas_todos_genes.png     # WCSS/n vs silhouette — todos os genes
+    ├── labels_multi_k.npz           # labels finais por K — todos os genes
+    ├── clusters_2d_k15.png          # projeção PCA (PC1×PC2) colorida por k=15 — todos os genes
     ├── relatorio_integridade.json   # veredito da validação ponta a ponta
-    ├── grafico_metricas*.png        # WCSS/n vs silhouette
-    ├── clusters_2d_k*.png           # projeções PCA (PC1×PC2) por K
-    └── umap_multi_k/                # figuras geradas pelo umap_vs_pca_multi_k.py
+    ├── analise_clusterabilidade.json  # sessão exploratória que motivou usar HVG (ver pca-gpu.py)
+    ├── umap_vs_pca.png              # saída de src/analise/umap_vs_pca.py
+    ├── hvg_vs_allgenes_umap.png     # saída de src/analise/hvg_pca_silhouette.py
+    ├── umap_multi_k/                # saída de src/analise/umap_vs_pca_multi_k.py (K=1..20)
+    └── hvg/                         # resultados do pipeline rodado sobre HVG (top-2000 genes)
+        ├── resultados_multi_k.json  # WCSS/silhouette por K
+        ├── grafico_metricas.png     # WCSS/n vs silhouette
+        ├── labels_multi_k.npz       # labels finais por K
+        └── umap_vs_pca_hvg_k16_hexbin.png  # UMAP hexbin estilo Fig.5A do paper (k=16)
 ```
+
+> **Nota sobre o PCA-HVG:** a primeira versão de `pca-gpu.py` calculava a covariância como um único
+> matmul sobre 1,15M linhas em float32, sofrendo cancelamento catastrófico na centralização
+> (`M = S − n·μμᵀ`) — o que corrompia os componentes principais silenciosamente (PC1+PC2 saía em 7,6%
+> da variância em vez dos ~36% esperados, e o silhouette do clustering final ficava artificialmente
+> baixo). Corrigido somando a covariância em chunks convertidos pra float64 antes de acumular; ver o
+> cabeçalho de `src/paralelizacao/pca-gpu.py` e `src/analise/investiga_variancia_hvg.py` para os detalhes.
 
 > **Caminhos portáveis:** os scripts do pipeline resolvem os caminhos **relativos à raiz do repositório**
 > (`BASE = Path(__file__).resolve().parents[2]`), apontando para a estrutura `dataset/` e `metricas-etapas/`

@@ -517,7 +517,7 @@ bullets(s, 0.7, 2.15, 4.7, [
     "O padrão se manteve entre rodadas independentes → é sinal real, não ruído.",
     "Convenção: silhouette < 0,25 indica estrutura de cluster fraca ou ausente.",
 ], size=14.5, gap=14)
-image_fit(s, os.path.join(IMG, "grafico_metricasv3.png"), 5.6, 2.0, 7.3, 4.6)
+image_fit(s, os.path.join(IMG, "grafico_metricas_todos_genes.png"), 5.6, 2.0, 7.3, 4.6)
 txt(s, 5.6, 6.75, 7.3, 0.4,
     [{"text": "Análise multi-K: WCSS/n e silhouette para K de 1 a 20.",
       "size": 11, "italic": True, "color": GRAY, "font": BF, "align": C}])

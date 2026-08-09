@@ -2,8 +2,44 @@
   {
     "etapa": "inicial",
     "checagem": "carregamento",
-    "status": "FALHA",
-    "detalhe": "erro ao abrir: \"Unable to synchronously open object (object 'matrix' doesn't exist)\""
+    "status": "OK",
+    "detalhe": "1,306,127 x 27,998 (leitura em blocos, h5py)"
+  },
+  {
+    "etapa": "inicial",
+    "checagem": "NaN / Inf",
+    "status": "OK",
+    "detalhe": "NaN=0, Inf=0"
+  },
+  {
+    "etapa": "inicial",
+    "checagem": "valores negativos",
+    "status": "OK",
+    "detalhe": "0 negativos (contagem não pode ser negativa)"
+  },
+  {
+    "etapa": "inicial",
+    "checagem": "valores inteiros",
+    "status": "OK",
+    "detalhe": "0 valores não-inteiros (esperado: contagens brutas)"
+  },
+  {
+    "etapa": "inicial",
+    "checagem": "densidade da matriz",
+    "status": "OK",
+    "detalhe": "7.178% não-zero"
+  },
+  {
+    "etapa": "inicial",
+    "checagem": "células com soma=0",
+    "status": "OK",
+    "detalhe": "0 células"
+  },
+  {
+    "etapa": "inicial",
+    "checagem": "genes com soma=0",
+    "status": "AVISO",
+    "detalhe": "3983 genes"
   },
   {
     "etapa": "filtrado",
@@ -157,6 +193,12 @@
   },
   {
     "etapa": "pipeline",
+    "checagem": "raw -> filtrado",
+    "status": "OK",
+    "detalhe": "1,306,127 -> 1,148,558"
+  },
+  {
+    "etapa": "pipeline",
     "checagem": "filtrado == cluster_init",
     "status": "OK",
     "detalhe": "1,148,558 vs 1,148,558"
@@ -208,5 +250,17 @@
     "checagem": "barcodes: normalizado ⊆ filtrado",
     "status": "OK",
     "detalhe": ""
+  },
+  {
+    "etapa": "labels_finais",
+    "checagem": "k3: n == pca",
+    "status": "OK",
+    "detalhe": "1,148,558 labels"
+  },
+  {
+    "etapa": "labels_finais",
+    "checagem": "k15: n == pca",
+    "status": "OK",
+    "detalhe": "1,148,558 labels"
   }
 ]

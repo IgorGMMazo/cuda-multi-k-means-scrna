@@ -15,10 +15,12 @@ import numpy as np
 
 # ── Caminhos ──────────────────────────────────────────────────────────────────
 BASE           = Path(__file__).resolve().parents[2]   # raiz do repositório (trabalho-cad-v2/)
-PCA_SCORES     = str(BASE / "dataset" / "pca" / "pca.npy")
-SAIDA_LABELS   = str(BASE / "metricas-etapas" / "labels_multi_k.npz")
-SAIDA_JSON     = str(BASE / "metricas-etapas" / "resultados_multi_kv4.json")
-SAIDA_PLOT     = str(BASE / "metricas-etapas" / "grafico_metricasv4.png")
+# lê o PCA sobre HVG (pca_hvg/), não o pca.npy antigo (todos os genes)
+PCA_SCORES     = str(BASE / "dataset" / "pca_hvg" / "pca.npy")
+# saídas em subpasta própria metricas-etapas/hvg/ — não sobrescreve os resultados antigos (todos os genes)
+SAIDA_LABELS   = str(BASE / "metricas-etapas" / "hvg" / "labels_multi_k.npz")
+SAIDA_JSON     = str(BASE / "metricas-etapas" / "hvg" / "resultados_multi_k.json")
+SAIDA_PLOT     = str(BASE / "metricas-etapas" / "hvg" / "grafico_metricas.png")
 
 # ── Config ────────────────────────────────────────────────────────────────────
 K_VALUES      = [2,4,6,8,10,12,14,16,18,20,22,24,26,28,30]
@@ -169,7 +171,7 @@ def plot_metrics(ks, wcss, sil, elbow_k, best_sil_k, save_path):
     ax1.legend(lines_1 + lines_2, labels_1 + labels_2, loc='upper center', bbox_to_anchor=(0.5, -0.15), ncol=4)
 
     plt.savefig(save_path, bbox_inches='tight', dpi=300)
-    print(f"\n  Gráfico salvo → {Path(save_path).name}")
+    print(f"\n  Grafico salvo -> {Path(save_path).name}")
 
 
 # ── Worker por thread ─────────────────────────────────────────────────────────
@@ -258,7 +260,7 @@ def main():
     print(f"  {'-'*46}")
     for k in ks_sorted:
         r   = results[k]
-        tag = " ← elbow" if k == elbow_k else (" ← melhor sil" if k == best_sil_k else "")
+        tag = " <- elbow" if k == elbow_k else (" <- melhor sil" if k == best_sil_k else "")
         print(f"  {k:>3}  {r['wcss_n']:>10.4f}  {r['silhouette']:>11.4f}  "
               f"{r['n_iters']:>6}  {r['elapsed_s']:>6.1f}s{tag}")
 
@@ -280,8 +282,8 @@ def main():
     
     plot_metrics(ks_sorted, wcss_list, sil_list, elbow_k, best_sil_k, SAIDA_PLOT)
 
-    print(f"  labels  → {Path(SAIDA_LABELS).name}")
-    print(f"  JSON    → {Path(SAIDA_JSON).name}")
+    print(f"  labels  -> {Path(SAIDA_LABELS).name}")
+    print(f"  JSON    -> {Path(SAIDA_JSON).name}")
     print("=" * 64)
 
 

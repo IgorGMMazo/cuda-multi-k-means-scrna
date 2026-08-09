@@ -159,7 +159,16 @@ def abrir_raw_10x(path, rel, etapa):
         return None
     try:
         f = h5py.File(path, "r")
-        grp = f["matrix"]
+        if "matrix" in f:
+            grp = f["matrix"]                # formato novo (CellRanger >= 3): grupo fixo "matrix"
+        else:
+            top_keys = list(f.keys())        # formato antigo (CellRanger < 3): grupo = nome do genoma (ex.: "mm10")
+            if len(top_keys) != 1:
+                raise KeyError(
+                    f"não achei grupo 'matrix' e há {len(top_keys)} grupos de nível superior "
+                    f"(esperado 1, formato CellRanger < 3): {top_keys}"
+                )
+            grp = f[top_keys[0]]
         n_genes, n_cells = (int(x) for x in grp["shape"][:])
         indptr = grp["indptr"][:]          # leve: n_cells+1 inteiros, ok carregar inteiro
         data_ds, indices_ds = grp["data"], grp["indices"]
